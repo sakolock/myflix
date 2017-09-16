@@ -1,3 +1,9 @@
-- (@videos).each do |video|
-  %h3= video.title
-  %img{:src => video.small_cover_url }
+%section.clearfix
+  - @categories.each do |category|
+    %article.video_category
+      %header
+        %h3
+          %a{:href => "/genre/#{category.id}" }= category.name
+      .videos.row
+        - category.recent_videos.each do |video|
+          = render 'videos/video_preview', video: video

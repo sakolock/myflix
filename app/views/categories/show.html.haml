@@ -1,0 +1,7 @@
+%section.content.clearfix
+  %section.genre
+    %header.clearfix
+      %h1= @category.name
+    %article.row
+      - (@category.videos).each do |video|
+        = render 'videos/video_preview', video: video
