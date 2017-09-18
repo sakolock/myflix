@@ -21,3 +21,5 @@ Video.create(title: 'South Park', description: 'This is a show about a family wi
 Video.create(title: 'Family Guy', description: 'A new great show about a family with strong moral character', small_cover_url: '/tmp/family_guy.jpg', large_cover_url: 'http://placehold.it/450x300', category_id: 1)
 Video.create(title: 'Monk', description: 'A show about a family with strong moral character', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg', category_id: 1)
 Video.create(title: 'Futurama', description: 'A show about a family with strong moral character', small_cover_url: '/tmp/futurama.jpg', large_cover_url: 'http://placehold.it/450x300', category_id: 1)
+
+User.create(email: 'test123@mail.com', password: 'password', full_name: 'Test User')

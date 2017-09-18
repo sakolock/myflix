@@ -11,6 +11,9 @@ gem 'jquery-rails'
 gem 'pg'
 gem 'bootstrap_form'
 gem 'bcrypt'
+gem 'fabrication'
+gem 'faker'
+gem 'rails-controller-testing'
 
 group :development do
   gem 'thin'
