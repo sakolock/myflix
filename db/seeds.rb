@@ -19,7 +19,12 @@ Video.create(title: 'Futurama', description: 'A show about a family with strong 
 Video.create(title: 'Futurama', description: 'A show about a family with strong moral character', small_cover_url: '/tmp/futurama.jpg', large_cover_url: 'http://placehold.it/450x300', category_id: 3)
 Video.create(title: 'South Park', description: 'This is a show about a family with strong moral character', small_cover_url: '/tmp/south_park.jpg', large_cover_url: 'http://placehold.it/450x300', category_id: 1)
 Video.create(title: 'Family Guy', description: 'A new great show about a family with strong moral character', small_cover_url: '/tmp/family_guy.jpg', large_cover_url: 'http://placehold.it/450x300', category_id: 1)
-Video.create(title: 'Monk', description: 'A show about a family with strong moral character', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg', category_id: 1)
-Video.create(title: 'Futurama', description: 'A show about a family with strong moral character', small_cover_url: '/tmp/futurama.jpg', large_cover_url: 'http://placehold.it/450x300', category_id: 1)
+monk = Video.create(title: 'Monk', description: 'A show about a family with strong moral character', small_cover_url: '/tmp/monk.jpg', large_cover_url: '/tmp/monk_large.jpg', category_id: 1)
+futurama = Video.create(title: 'Futurama', description: 'A show about a family with strong moral character', small_cover_url: '/tmp/futurama.jpg', large_cover_url: 'http://placehold.it/450x300', category_id: 1)
 
-User.create(email: 'test123@mail.com', password: 'password', full_name: 'Test User')
+u = User.create(email: 'test123@mail.com', password: 'password', full_name: 'Test User')
+
+Review.create(rating: 4, video: futurama, user: u, content: 'Great flixk, loved the purple one')
+Review.create(rating: 1, video: monk, user: u, content: 'Could\'ve been better.')
+Review.create(rating: 5, video: monk, user: u, content: 'Hi.')
+Review.create(rating: 5, video: futurama, user: u, content: 'The absolute best')

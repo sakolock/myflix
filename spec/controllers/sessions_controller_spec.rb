@@ -14,26 +14,52 @@ describe SessionsController do
   end
 
   describe 'POST create' do
-    context "with valid credentials" do
-      let(:alice) { Fabricate(:user) }
 
+    let(:alice) { Fabricate(:user) }
+
+    context "with valid credentials" do
+
+      before { post :create, params: { email: alice.email, password: alice.password } }
+      
       it 'sets session[:user_id] to user_id if user authenticated' do
-        post :create, params: { user: { email: alice.email, password: alice.password } }
         expect(session[:user_id]).to eq(alice.id)
       end
-      it 'redirects to home if user is authenticated'
-      it 'flashes notice if user is authenticated'
+      it 'redirects to home if user is authenticated' do
+        expect(response).to redirect_to home_path        
+      end
+      it 'flashes notice if user is authenticated' do
+        expect(flash[:notice]).not_to be_blank
+      end
     end
 
     context "with invalid credentials" do
-      it 'flashes error if user cannot be authenticated'
-      it 'redirects to sign_in if cannot be authenticated'
+      
+      before { post :create, params: { email: alice.email, password: alice.password + 'asfs' } }      
+      
+      it 'flashes error if user cannot be authenticated' do
+        expect(flash[:error]).not_to be_blank
+      end
+      it 'redirects to sign_in if cannot be authenticated' do
+        expect(response).to redirect_to sign_in_path
+      end
     end
   end
 
   describe 'POST destroy' do
-    it 'sets session[:user_id] to nil'
-    it 'redirects to root_path'
-    it 'flashes notice of signout'
+
+    before do
+      session[:user_id] = Fabricate(:user).id
+      get :destroy
+    end
+
+    it 'sets session[:user_id] to nil' do
+      expect(session[:user_id]).to be_nil
+    end
+    it 'redirects to sign_in_path' do
+      expect(response).to redirect_to root_path
+    end
+    it 'flashes notice of signout' do
+      expect(flash[:notice]).not_to be_blank
+    end
   end
 end

@@ -7,7 +7,7 @@ class VideosController < ApplicationController
   end
 
   def show
-    render 'show'
+    @reviews = @video.reviews
   end
 
   def search
