@@ -103,6 +103,13 @@ describe QueueItemsController do
   end
 
   describe "POST update_queue" do
+    
+    it_behaves_like 'require sign in' do
+      let(:action) do 
+        post :update_queue, params: { queue_items: [{id: 2, position:3}, {id: 5, position: 2.3}] }
+      end
+    end
+
     context "with valid inputs" do
 
       let(:alice) { Fabricate(:user) }
@@ -147,17 +154,6 @@ describe QueueItemsController do
       it "does not change the queue items" do
         post :update_queue, params: { queue_items: [{id: queue_item1.id, position:3}, {id: queue_item2.id, position: 2.3}] }
         expect(queue_item1.reload.position).to eq(1)
-      end
-    end
-
-    context "with unauthenticated users" do
-      it "redirects to the sign in path" do
-        post :update_queue, params: { queue_items: [{id: 2, position:3}, {id: 5, position: 2.3}] }
-        expect(response).to redirect_to sign_in_path
-      end
-
-      it_behaves_like 'require sign in' do
-        let(:action) { post :update_queue, params: { queue_items: [{id: 2, position:3}, {id: 5, position: 2.3}] } }
       end
     end
 
