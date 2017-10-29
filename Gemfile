@@ -15,6 +15,7 @@ gem 'fabrication'
 gem 'faker'
 gem 'rails-controller-testing'
 gem 'sidekiq'
+gem 'unicorn'
 
 group :development do
   gem 'thin'
