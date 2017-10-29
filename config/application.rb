@@ -4,6 +4,8 @@ require 'rails/all'
 
 Bundler.require(:default, Rails.env)
 
+Sidekiq::Extensions.enable_delay!
+
 module Myflix
   class Application < Rails::Application
     config.encoding = "utf-8"
