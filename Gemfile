@@ -16,6 +16,7 @@ gem 'faker'
 gem 'rails-controller-testing'
 gem 'sidekiq'
 gem 'unicorn'
+gem 'sentry-raven'
 
 group :development do
   gem 'thin'
