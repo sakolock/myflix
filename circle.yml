@@ -1,0 +1,19 @@
+machine:
+  ruby:
+    version: 2.4.1
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app kolock-myflix
+      - heroku pg:backups capture --app kolock-myflix
+      - git push git@heroku.com:kolock-myflix.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app kolock-myflix
+      - heroku maintenance:off --app kolock-myflix
+  staging:
+    branch: staging
+    commands:
+      - heroku maintenance:on --app damp-hamlet-13118
+      - git push git@heroku.com:damp-hamlet-13118.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app damp-hamlet-13118
+      - heroku maintenance:off --app damp-hamlet-13118

@@ -12,6 +12,8 @@ module Myflix
     config.filter_parameters += [:password]
     config.active_support.escape_html_entities_in_json = true
 
+    config.assets.initialize_on_precompile = false
+
     config.assets.enabled = true
     config.generators do |g|
       g.orm :active_record
@@ -20,9 +22,4 @@ module Myflix
 
     config.autoload_paths << "#{Rails.root}/lib"
   end
-end
-
-Raven.configure do |config|
-  config.dsn = ENV['SENTRY_DSN']
-  config.environments = ['production']
 end
