@@ -1,1 +1,7 @@
-A Netflix Clone build using BDD
+A Netflix Clone built using:
+ - TDD/BDD with RSpec & Capybara
+ - Email generation
+ - Continuous Integration with sentry-raven
+ - Continuous Deployment with sentry-raven
+
+Much more
