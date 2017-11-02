@@ -3,5 +3,5 @@ A Netflix Clone built using:
  - Email generation
  - Continuous Integration with sentry-raven
  - Continuous Deployment with sentry-raven
-
+ - Heroku
 Much more
