@@ -9,6 +9,13 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       handle_invitation
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+      token = params[:stripeToken]
+      StriperWrapper::Charge.create(
+        :amount => 999,
+        :description => "Sign up charge for #{@user.email}",
+        :source => token
+      )
       AppMailer.send_welcome_email(@user).deliver
       redirect_to sign_in_path
     else
@@ -43,6 +50,6 @@ class UsersController < ApplicationController
   end
   
   def user_params
-    params.require(:user).permit(:email, :password, :full_name, :token)
+    params.require(:user).permit(:email, :password, :full_name, :token, :stripeToken)
   end
 end

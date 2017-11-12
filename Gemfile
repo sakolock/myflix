@@ -17,6 +17,10 @@ gem 'rails-controller-testing'
 gem 'sidekiq'
 gem 'unicorn'
 gem 'sentry-raven'
+gem 'carrierwave-aws'
+gem 'mini_magick'
+gem 'stripe'
+gem 'figaro'
 
 group :development do
   gem 'thin'
@@ -38,6 +42,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'capybara-email'
+  gem 'webmock'
 end
 
 group :production do

@@ -1,14 +1,25 @@
+= content_for :head do
+  %script(src="https://js.stripe.com/v3/")
+
+  = javascript_include_tag 'payments'
+
 %section.register.container
   .row
     .col-sm-10.col-sm-offset-1
-      = bootstrap_form_for @user, html: { class: "form-horizontal" } do |f|
+      = bootstrap_form_for @user, html: { id: "payment-form", class: "form-horizontal" } do |f|
         %header
           %h1 Register
         %fieldset
-          = f.email_field :email, label: "Email Address", label_class: "col-sm-2", input_group_class: "col-sm-6" 
-          = f.password_field :password, label_class: "col-sm-2", input_group_class: "col-sm-6" 
-          = f.text_field :full_name, label: "Full Name", label_class: "col-sm-2", input_group_class: "col-sm-6" 
+          = f.email_field :email, label: "Email Address", label_class: "col-sm-3", input_group_class: "col-sm-6" 
+          = f.password_field :password, label_class: "col-sm-3", input_group_class: "col-sm-6" 
+          = f.text_field :full_name, label: "Full Name", label_class: "col-sm-3", input_group_class: "col-sm-6" 
           = hidden_field_tag :invitation_token, @invitation_token
-        %fieldset.actions.control-group.col-sm-offset-2
+        %fieldset.credit_card
+          .form-group
+            %label.col-sm-3(for='card-element') Credit/debit card
+            .input-group.col-xs-10.col-sm-offset-3.col-sm-8
+              %div(id="card-errors" role="alert")
+              %div#card-element.form-control
+        %fieldset.actions.control-group
           .controls
-            %input(type="submit" value="Sign Up" class="btn btn-default")
+            %input(type="submit" value="Sign Up" class="btn btn-success")
