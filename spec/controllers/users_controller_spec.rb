@@ -12,9 +12,11 @@ describe UsersController do
   end
 
   describe 'POST create' do
-    context "with valid input" do
+    context "with valid personal info and valid card" do
 
+      let(:charge) { double(:charge, successful?: true) }
       before do
+        allow(StripeWrapper::Charge).to receive(:create).and_return(charge)
         post :create, params:{ user: Fabricate.attributes_for(:user) }
       end
 
@@ -47,24 +49,61 @@ describe UsersController do
         expect(Invitation.first.token).to be_nil
       end
     end
-    context "with invalid input" do
-      
-      before do
-        post :create, params: { user: { password: 'password', full_name: 'user name' } }
-      end
 
-      it "does not create user" do
-        expect(User.count).to eq(0)
-      end
-      it "renders the :new template" do
+    context "with valid personal info and declined card" do
+      it "renders the new template" do
+        charge = double(:charge, successful?: false, error_message: 'Your card was declined.')
+        allow(StripeWrapper::Charge).to receive(:create).and_return(charge)
+        post :create, params:{ user: Fabricate.attributes_for(:user) }
         expect(response).to render_template :new
       end
+      
+      it "does not create a new user record" do
+        charge = double(:charge, successful?: false, error_message: 'Your card was declined.')
+        allow(StripeWrapper::Charge).to receive(:create).and_return(charge)
+        post :create, params:{ user: Fabricate.attributes_for(:user) }
+        expect(User.count).to eq(0)
+      end
+
+      it "sets the flash error message" do
+        charge = double(:charge, successful?: false, error_message: "Your card was declined.")
+        allow(StripeWrapper::Charge).to receive(:create).and_return(charge)
+        post :create, params:{ user: Fabricate.attributes_for(:user) }
+        expect(flash[:error]).to be_present
+      end
+    end
+
+    context "with invalid personal info" do
+
+      it "does not create user" do
+        post :create, params: { user: { password: 'password', full_name: 'user name' } }
+        expect(User.count).to eq(0)
+      end
+
+      it "renders the :new template" do
+        post :create, params: { user: { password: 'password', full_name: 'user name' } }
+        expect(response).to render_template :new
+      end
+
       it "sets @user" do
+        post :create, params: { user: { password: 'password', full_name: 'user name' } }
         expect(assigns(:user)).to be_instance_of(User)
+      end
+
+      it "does not charge the card" do
+        expect(StripeWrapper::Charge).should_not_receive(:create)
+        post :create, params: { user: { password: 'password', full_name: 'user name' } }
       end
     end
 
     context "sending emails" do
+
+      let(:charge) { double(:charge, successful?: true) }
+
+      before do
+        allow(StripeWrapper::Charge).to receive(:create).and_return(charge)
+      end
+
       it 'sends out an email to the user with valid inputs' do
         post :create, params: { user: { email: "joe@example.com", password: "password", full_name: "Joe Smith" }}
         expect(ActionMailer::Base.deliveries.last.to).to eq(['joe@example.com'])

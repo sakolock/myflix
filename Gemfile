@@ -11,8 +11,6 @@ gem 'jquery-rails'
 gem 'pg'
 gem 'bootstrap_form'
 gem 'bcrypt'
-gem 'fabrication'
-gem 'faker'
 gem 'rails-controller-testing'
 gem 'sidekiq'
 gem 'unicorn'
@@ -32,17 +30,21 @@ end
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
-  gem 'rspec-rails', '3.6.1'
+  gem 'rspec-rails', '>3.4'
+  gem 'fabrication'
+  gem 'faker'
 end
 
 group :test do
   gem 'database_cleaner', '1.4.1'
   gem 'shoulda-matchers', '2.7.0'
   gem 'vcr', '2.9.3'
-  gem 'capybara'
-  gem 'launchy'
-  gem 'capybara-email'
   gem 'webmock'
+  gem 'capybara'
+  gem 'capybara-email'
+  gem 'launchy'
+  gem 'selenium-webdriver', '3.7.0'
+  gem 'geckodriver-helper'
 end
 
 group :production do

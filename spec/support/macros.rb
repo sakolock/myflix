@@ -25,3 +25,9 @@ end
 def click_on_video_on_home_page(video)
   find("a[href='/videos/#{video.id}']").click
 end
+
+def fill_in_stripe_field(locator, with:)
+  sleep 1
+  page.execute_script "document.querySelector('#{locator}').value = '#{with}';"
+end
+
