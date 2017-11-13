@@ -14,11 +14,11 @@ gem 'bcrypt'
 gem 'rails-controller-testing'
 gem 'sidekiq'
 gem 'unicorn'
-gem 'sentry-raven'
 gem 'carrierwave-aws'
 gem 'mini_magick'
 gem 'stripe'
 gem 'figaro'
+gem 'draper'
 
 group :development do
   gem 'thin'
