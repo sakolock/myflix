@@ -1,4 +1,4 @@
-class VideoDecorator < Draper::Decorators
+class VideoDecorator < Draper::Decorator
   delegate_all
 
   def rating
