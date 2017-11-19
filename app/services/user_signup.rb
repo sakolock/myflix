@@ -10,12 +10,12 @@ class UserSignup
     if @user.valid?
       Stripe.api_key = ENV['STRIPE_SECRET_KEY']
       token = stripe_token
-      charge = StripeWrapper::Charge.create(
-        :amount => 999,
-        :description => "Sign up charge for #{@user.email}",
+      customer = StripeWrapper::Customer.create(
+        :user => @user,
         :source => token
       )
-      if charge.successful?
+      if customer.successful?
+        @user.customer_token = customer.customer_token
         @user.save
         handle_invitation(invitation_token)
         AppMailer.send_welcome_email(@user).deliver
@@ -23,7 +23,7 @@ class UserSignup
         self
       else
         @status = :failed
-        @error_message = charge.error_message
+        @error_message = customer.error_message
         self
       end
     else

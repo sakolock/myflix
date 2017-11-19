@@ -113,6 +113,19 @@ GEM
       activemodel-serializers-xml (~> 1.0)
       activesupport (~> 5.0)
       request_store (~> 1.0)
+    elasticsearch (5.0.4)
+      elasticsearch-api (= 5.0.4)
+      elasticsearch-transport (= 5.0.4)
+    elasticsearch-api (5.0.4)
+      multi_json
+    elasticsearch-model (5.0.1)
+      activesupport (> 3)
+      elasticsearch (~> 5)
+      hashie
+    elasticsearch-rails (5.0.1)
+    elasticsearch-transport (5.0.4)
+      faraday
+      multi_json
     erubi (1.6.1)
     erubis (2.7.0)
     eventmachine (1.2.5)
@@ -142,6 +155,7 @@ GEM
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
     hashdiff (0.3.7)
+    hashie (3.5.6)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -170,6 +184,7 @@ GEM
     mini_mime (0.1.4)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
+    multi_json (1.12.2)
     multipart-post (2.0.0)
     nio4r (2.1.0)
     nokogiri (1.8.0)
@@ -279,6 +294,9 @@ GEM
       sprockets (>= 3.0.0)
     stripe (3.8.0)
       faraday (~> 0.10)
+    stripe_event (1.8.0)
+      activesupport (>= 3.1)
+      stripe (>= 1.6, < 4.0)
     temple (0.8.0)
     thin (1.7.2)
       daemons (~> 1.0, >= 1.0.9)
@@ -317,6 +335,8 @@ DEPENDENCIES
   coffee-rails
   database_cleaner (= 1.4.1)
   draper
+  elasticsearch-model
+  elasticsearch-rails
   fabrication
   faker
   figaro
@@ -340,6 +360,7 @@ DEPENDENCIES
   shoulda-matchers (= 2.7.0)
   sidekiq
   stripe
+  stripe_event
   thin
   uglifier
   vcr (= 2.9.3)
