@@ -6,6 +6,7 @@
       %li= link_to "Videos", home_path
       %li= link_to "My Queue", my_queue_path
       %li= link_to "People", people_path
+      %li= link_to "Advanced Search", advanced_search_videos_path
     = form_tag search_videos_path, class: "col-sm-5 for-search", method: "get" do
       %fieldset
         %input.form-control(name="search_term" type="text" placeholder="Search for videos here")
