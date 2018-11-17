@@ -26,6 +26,7 @@ gem 'elasticsearch-rails'
 gem 'loofah', '~> 2.2.1'
 gem 'nokogiri', '~> 1.8.2'
 gem 'rails-html-sanitizer', '~> 1.0.4'
+gem "rack", ">= 2.0.6"
 
 group :development do
   gem 'thin'
