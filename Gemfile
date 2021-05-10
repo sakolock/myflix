@@ -24,7 +24,7 @@ gem 'draper'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'loofah', '~> 2.2.1'
-gem 'nokogiri', '~> 1.8.2'
+gem 'nokogiri', '~> 1.10.10'
 gem 'rails-html-sanitizer', '~> 1.0.4'
 gem "rack", ">= 2.0.6"
 
